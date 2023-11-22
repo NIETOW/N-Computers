@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vente de PC</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/script.js' %}"></script>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="#">Accueil</a></li>
+            <li><a href="{% url 'produits' %}">Produits</a></li>
+            <li><a href="#">À propos</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+    <h1>La meilleure sélection de PC</h1>
+    <p>Trouvez l'ordinateur parfait pour vos besoins</p>
+    <div class="button">
+    <a class="cta-button" href="{% url 'produits' %}">Acheter maintenant</a>
+    </div>
+</header>
+
+<section class="features">
+    <div class="feature">
+
+        <h2>{{ product.name }}</h2>
+        <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}">
+
+        <img src="{% static 'css/laptop1.png'%}" alt="Laptop" width="300" height="300">
+        <h2>Performances exceptionnelles</h2>
+        <p>Des processeurs puissants et une mémoire rapide pour une expérience informatique fluide.</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'css/PC1-a.png'%}" alt="Gaming PC" width="300" height="300">
+        <h2>Expérience de jeu ultime</h2>
+        <p>Des cartes graphiques de pointe et des fonctionnalités conçues pour les joueurs exigeants.</p>
+    </div>
+    <div class="feature">
+        <img src="{% static 'css/laptop2.png'%}" alt="PC portable bureautique" width="300" height="300">
+        <h2>Productivité maximale</h2>
+        <p>Des ordinateurs portables de bureau performants pour améliorer votre productivité au travail ou à la maison.</p>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2023 Vente de PC. Tous droits réservés.</p>
+</footer>
+</body>
+</html>

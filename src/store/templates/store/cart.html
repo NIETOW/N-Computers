@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-2xl mt-4 ml-4 font-bold mb-4">Votre panier</h1>
+
+<div class="flex">
+  <div class="w-2/3">
+    {% for order in orders %}
+    <div class="bg-white rounded-lg shadow-md p-4 w-1/3 mb-4 mt-4">
+        <h2 class="text-xl mt-4">{{ order.product.name }}</h2>
+        <div class="product-image-wrapper relative">
+            <img src="{{ order.product.thumbnail.url }}" class="max-w-350" alt="{{ order.product.name }}">
+            <div class="flex items-center mt-2">
+              <p class="text-xl" id="quantity-{{ order.id }}">{{ order.quantity }} dans le panier</p>
+            </div>
+            <p class="mt-2 text-xl">Prix: {{ order.product.price }}€</p>
+        </div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="w-1/3">
+    <div class="bg-white rounded-lg shadow-md p-4 w-full">
+        <h2 class="text-xl font-bold mb-4">Récapitulatif</h2>
+        {% for order in orders %}
+        <div class="flex items-center mb-4">
+            <div>
+                <p class="font-semibold">{{ order.product.name }}</p>
+                <p>{{ order.product.price }}€</p>
+            </div>
+        </div>
+        {% endfor %}
+        <hr class="my-4">
+        <div class="flex justify-between">
+            <p class="font-semibold">Sous-total:</p>
+            <p>{{ total_price }}€</p>
+        </div>
+    </div>
+  </div>
+</div>
+
+<a href="{% url 'delete-cart' %}"
+   class="bottom-0 left-0 inline-block bg-red-600 text-white rounded-lg px-4 py-2 mt-4 hover:bg-red-700">Supprimer
+    le panier</a>
+
+{% endblock %}

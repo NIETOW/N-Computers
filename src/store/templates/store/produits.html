@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container mx-auto text-center my-8">
+    <h1 class="text-4xl font-bold mb-4">Derniers Produits</h1>
+    <div class="flex justify-center">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {% for product in products %}
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <a href="{{ product.get_absolute_url }}" class="flex flex-col items-center">
+                    <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" class=" w-max-350 transition-transform duration-300 transform hover:scale-105">
+                    <h2 class="font-bold">{{ product.name }}</h2>
+                    {% if product.rangePrice %}
+                    <h3>{{ product.price }}€ - {{ product.maxPrice }}€</h3>
+                    {% else %}
+                    <h3>{{ product.price }}€</h3>
+                    {% endif %}
+                    <a href="{{ product.get_absolute_url }}"
+                       class="bottom-0 left-0 inline-block bg-indigo-600 text-white rounded-full px-4 py-2 mt-4 hover:bg-indigo-700">Voir
+                        le produit</a>
+                </a>
+            </div>
+            {% endfor %}
+
+            <div class="bg-white rounded-lg shadow-md p-4">
+                <a href="{% url 'configomatic' %}" class="flex flex-col items-center">
+                    <img src="https://www.cybertek.fr/landing-pages/images/configurateur/img-configu.png"
+                         alt="Configomatic" class=" w-max-350 transition-transform duration-300 transform hover:scale-105">
+                    <h2 class="font-bold">Configomatic</h2>
+                    <p>600€-8000€</p>
+                    <a href="{% url 'configomatic' %}"
+                       class="bottom-0 left-0 inline-block bg-indigo-600 text-white rounded-full px-4 py-2 mt-4 hover:bg-indigo-700">Configurer
+                        votre PC</a>
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const productCards = document.querySelectorAll('.product-card');
+
+    productCards.forEach(function(card) {
+      card.addEventListener('click', function() {
+        this.classList.toggle('expanded');
+      });
+    });
+  });
+    </script>
+
+</main>
+{% endblock %}

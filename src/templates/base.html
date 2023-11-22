@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% load tailwind_tags %}
+    <meta charset="UTF-8">
+    <title>N-Computers</title>
+    {% tailwind_css %}
+    <header class="bg-gray-900 dark:bg-gray-800 py-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="{% url 'index' %}" class="text-2xl text-white nav-link font-bold">N-Computers</a>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li>
+                        <a href="{% url 'index' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Accueil</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'produits' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Produits</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'configomatic' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Configomatic</a>
+                    </li>
+
+                </ul>
+            </nav>
+
+
+            <div class="ml-4">
+                <a href="{% url 'tri' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Trier</a>
+            </div>
+
+            <form action="{% url 'search_products' %}" method="GET">
+                <input type="text" name="q" placeholder="Rechercher des produits" class="rounded-lg text-black">
+                <button class="nav-link text-white hover:text-gray-400 transition-colors duration-200" type="submit">Rechercher</button>
+            </form>
+            {% if user.cart %}
+
+            <a href="{% url 'cart' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Voir le panier ({{ user.cart.orders.count }})</a>
+
+            {% endif %}
+            <nav>
+                <ul>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'logout' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Déconnexion</a>
+                    </li>
+                    <li class="text-white">
+                        {{ user.username }}
+                    </li>
+                    {% else %}
+                    <li>
+                        <a href="{% url 'login' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">Se connecter</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'signup' %}" class="nav-link text-white hover:text-gray-400 transition-colors duration-200">S'inscrire</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+<a href="#" id="darkModeToggle" class="nav-link">
+<img width="24" height="24" src="https://img.icons8.com/material/24/7950F2/first-quarter.png" alt="first-quarter"/>
+</a>
+
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+    <footer class="bg-gray-900 dark:bg-gray-800 text-white py-4 mt-4">
+        <div class="container mx-auto flex items-center justify-center">
+            <p>&copy; 2023 N-Computers. Tous droits réservés.</p>
+        </div>
+    </footer>
+</head>
+<script>
+    const darkModeToggle = document.querySelector('#darkModeToggle');
+    const body = document.body;
+
+    darkModeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark');
+    });
+</script>
+</html>

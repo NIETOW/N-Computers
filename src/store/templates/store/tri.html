@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container mx-auto text-center my-8">
+  <h2 class="text-2xl mb-4">Liste des produits</h2>
+
+<form method="GET">
+  <label for="sort_by">Trier par :</label>
+  <select id="sort_by" name="sort_by" class="rounded-lg">
+    <option value="">-- Sélectionnez une option --</option>
+    <option value="name_asc">Nom (A-Z)</option>
+    <option value="name_desc">Nom (Z-A)</option>
+    <option value="price_asc">Prix croissant</option>
+    <option value="price_desc">Prix décroissant</option>
+  </select>
+  <button type="submit">Trier</button>
+</form>
+
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+      {% for product in products %}
+        <div class="bg-white rounded-lg shadow-md p-4">
+          <a href="{{ product.get_absolute_url }}" class="flex flex-col items-center">
+            <div class="w-2/3 h-2/3">
+              <img src="{{ product.thumbnail.url }}" alt="{{ product.name }}" class="object-cover w-full h-full">
+            </div>
+            <h2 class="font-bold">{{ product.name }}</h2>
+            <h3>{{ product.price }}€</h3>
+            <a href="{{ product.get_absolute_url }}" class="inline-block bg-indigo-600 text-white rounded-full px-4 py-2 mt-4 hover:bg-indigo-700">Voir le produit</a>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+</main>
+{% endblock %}
